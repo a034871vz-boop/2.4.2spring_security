@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+    <div style="text-align:right; padding:5px; margin:5px 0px; background:#ccc;">
+        <a th:href="@{/user}"> User info </a>
+        <a th:href="@{/logout}"> Logout </a>
+    </div>
+    <div>
+        <h2>Users table</h2>
+        <table border="10" th:action="@{/createUser}">
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Roles</th>
+            </tr>
+            <th:block th:each="user : ${listUsers}">
+                <tr>
+                    <td th:utext="${user.id}"></td>
+                    <td th:utext="${user.name}"></td>
+                    <td th:utext="${user.lastName}"></td>
+                    <td th:utext="${user.age}"></td>
+                    <td th:utext="${user.email}"></td>
+                    <td th:utext="${user.password}"></td>
+                    <td>
+                        <th:block th:each="role : ${user.roles}">
+                            <a th:text="${role.roleName} + ';'"></a>
+                        </th:block>
+                    </td>
+                    <td>
+                        <form th:action="@{/editUser/{id}(id=${user.id})}" method="post" th:object="${user}">
+                            <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/deleteUser/{id}(id=${user.id})}" method="post" th:object="${user}">
+                            <input type="submit" value="Delete">
+                        </form>
+                    </td>
+                </tr>
+            </th:block>
+        </table>
+        <div style="text-align:left; margin:10px 10px;">
+            <form th:action="@{/createUser}" method="post">
+                <input type="submit" value="New user">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

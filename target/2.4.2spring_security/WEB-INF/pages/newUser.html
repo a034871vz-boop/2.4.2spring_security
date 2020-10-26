@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>New</title>
+    </head>
+    <body>
+        <div style="text-align:right; padding:5px; margin:5px 0px; background:#ccc;">
+            <a th:href="@{/user}"> User info </a>
+            <a th:href="@{/logout}"> Logout </a>
+        </div>
+
+        <form th:action="@{/create}"method="post" th:object="${newUser}">
+            <fieldset>
+                <legend>New user</legend>
+                <p>
+                    <label th:for="name">Name </label>
+                    <input type="text" name="name" th:id="name">
+                </p>
+                <p>
+                    <label th:for="lastName">LastName </label>
+                    <input type="text" name="lastName" th:id="lastName">
+                </p>
+                <p>
+                    <label th:for="age">Age </label>
+                    <input type="text" name="age" th:id="age">
+                </p>
+                <p>
+                    <label th:for="email">Email </label>
+                    <input type="text" name="email" th:id="email">
+                </p>
+                <p>
+                    <label th:for="password">Password </label>
+                    <input type="text" name="password" th:id="password">
+                </p>
+                <p>
+                    <label th:for="roles">Roles </label>
+                    <select multiple name="roles" size="3" th:id="roles" required>
+                        <option disabled>Select roles</option>
+                        <option th:each="role : ${allRoles}" th:value="${role}" th:text="${role.roleName}"></option>
+                    </select>
+                </p>
+            </fieldset>
+
+            <div style="text-align:left; margin:10px 10px;">
+                <input type="submit" value="Create">
+            </div>
+        </form>
+    </body>
+</html>
